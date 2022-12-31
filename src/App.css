@@ -13,6 +13,14 @@
   }
 }
 
+.Store {
+  padding: 20px;
+}
+
+.List {
+  padding: 20px;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
