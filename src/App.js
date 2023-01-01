@@ -5,15 +5,33 @@ import './App.css';
 import Card from "./components/Card";
 
 const storeItems = [{
-  name: "Spor Ayakkabı",
+  name: "Macbook",
+  src: "Macbook",
   price: 20
 },
 {
-  name: "Futbol Topu",
+  name: "Mobilephone",
+  src: "mobilephone",
   price: 10
 },
 {
-  name: "Forma",
+  name: "Mouse",
+  src: "mouse",
+  price: 25
+},
+{
+  name: "Headsets",
+  src: "headset",
+  price: 20
+},
+{
+  name: "Office Chair",
+  src: "chair",
+  price: 10
+},
+{
+  name: "Smart Watch",
+  src: "Watch",
   price: 25
 }
 ];
@@ -27,10 +45,11 @@ function App() {
   return (
     <Container>
       <SimpleGrid cols={3} className="Store">
-        {storeItems.map(({name}) => {
+        {storeItems.map(({name, src}) => {
           return <Card 
           key={name} 
           name={name} 
+          src={src}
           onAdd={() => setBasketItems([...basketItems, {name}])}
           />;
         })}
