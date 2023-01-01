@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, List, SimpleGrid, ThemeIcon, Input } from '@mantine/core'
+import { Button, Container, Group, List, SimpleGrid, ThemeIcon, Input, } from '@mantine/core'
 import { IconCircleCheck, IconCircleDashed } from '@tabler/icons';
 import './App.css';
 import Card from "./components/Card";
@@ -44,9 +44,12 @@ function App() {
  
   return (
     <Container>
+      <Group align="end">
       <Input.Wrapper label="Arama">
-        <Input onChange={(e) => setSearchValue(e.target.value)}/>
+        <Input value= {searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
       </Input.Wrapper>
+      <Button onClick={() => setSearchValue("")}>Temizle</Button>
+      </Group>
       <SimpleGrid cols={3} className="Store">
         {filteredItems.map(({name, src}) => {
           return <Card 
