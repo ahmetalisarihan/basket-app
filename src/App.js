@@ -1,35 +1,41 @@
 import { useState } from 'react';
-import { Button, Container, Drawer, Group, List, Indicator, SimpleGrid, ThemeIcon, Input, } from '@mantine/core'
-import { IconCircleCheck, IconCircleDashed } from '@tabler/icons';
+import { Badge, Button, Container, Drawer, Group, List, Indicator, SimpleGrid, ThemeIcon, Input, } from '@mantine/core'
+import { IconCircleCheck, IconCircleDashed, IconZeppelin } from '@tabler/icons';
 import './App.css';
 import Card from "./components/Card";
 
 const storeItems = [{
+  id: 1,
   name: "Macbook",
   src: "Macbook",
   price: 20
 },
 {
+  id: 2,
   name: "Mobilephone",
   src: "mobilephone",
   price: 10
 },
 {
+  id: 3,
   name: "Mouse",
   src: "mouse",
   price: 25
 },
 {
+  id: 4,
   name: "Headsets",
   src: "headset",
   price: 20
 },
 {
+  id: 5,
   name: "Office Chair",
   src: "chair",
   price: 10
 },
 {
+  id: 6,
   name: "Smart Watch",
   src: "Watch",
   price: 25
@@ -42,7 +48,16 @@ function App() {
   let [searchValue, setSearchValue] = useState("");
   let filteredItems = storeItems.filter(
     (item) => item.name.toLowerCase().indexOf(searchValue.toLowerCase()) >=0);
- 
+  let addToBasket = ({ id, name }) => {
+    let basketIndex= basketItems.findIndex((item) => item.id === id);
+    if (basketIndex >=0) {
+      let _basketItems = [...basketItems];
+      _basketItems[basketIndex].count += 1;
+      setBasketItems(_basketItems);
+    } else{
+      setBasketItems([...basketItems, { id, name, count: 1 }]);
+    } 
+  };
   return (
     <Container>
       <Group align="end">
@@ -55,12 +70,12 @@ function App() {
       </Indicator>
       </Group>
       <SimpleGrid cols={3} className="Store">
-        {filteredItems.map(({name, src}) => {
+        {filteredItems.map(({id, name, src}) => {
           return <Card 
           key={name} 
           name={name} 
           src={src}
-          onAdd={() => setBasketItems([...basketItems, {name}])}
+          onAdd={()=> addToBasket({id, name})}
           />;
         })}
       </SimpleGrid>
@@ -83,8 +98,9 @@ function App() {
         </ThemeIcon>
       }
     >
-      {basketItems.map(({ name }, index) => (
-      <List.Item key={index}>{name}</List.Item>
+      {basketItems.map(({ name, count }, index) => (
+      <List.Item key={index}>{name} <Badge>{count}</Badge>
+      </List.Item>
       ))}
     </List>
       </Drawer>
